@@ -14,12 +14,12 @@ class ImageService
         $imageSizes = Config::get('image.index-image-sizes');
 
 //        generate 5 random number
-        $imageName = rand(10000, 90000);
+        $uuid = rand(10000, 90000);
 
         $indexArray = [];
         foreach ($imageSizes as $sizeAlias => $imageSize) {
             //create and set this size name
-            $currentImageName = $imageName . '_' . $sizeAlias . '.' . $image->getClientOriginalName();
+            $currentImageName = $uuid . '_' . $sizeAlias . '.' . $image->getClientOriginalName();
 
 //            get original image default width and height
             list($defaultWidth, $defaultHeight) = $this->getDefaultSizes($image);
