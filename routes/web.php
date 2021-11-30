@@ -19,6 +19,7 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
+
 //ADMIN
 $router->group(['namespace' => 'Admin', 'prefix' => 'admin'], function () use ($router) {
     //CONTENT
