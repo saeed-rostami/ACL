@@ -8,29 +8,32 @@ use Intervention\Image\Facades\Image;
 
 class ImageService
 {
-  public function createIndexAndSave($image)
+    public function createIndexAndSave($image)
     {
         //get data from config
         $imageSizes = Config::get('image.index-image-sizes');
 
         $uuid = rand(10000, 90000);
-        $fileName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+        $imageName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
 
         $indexArray = [];
         foreach ($imageSizes as $sizeAlias => $imageSize) {
 
-            //create and set this size name
-            $currentImageName = $uuid . '_' . $fileName . '/' . $sizeAlias . '.' . $image->Extension();
+//            create and set this size name
+            $currentImageName = $uuid . '_' . $imageName;
 
             list($defaultWidth, $defaultHeight) = $this->getDefaultSizes($image);
 
+            $fileName = $sizeAlias . '.' . $image->getClientOriginalExtension();
 
-            //save image
-            $result = Image::make($image->getRealPath())->fit($imageSize['width'] ?? $defaultWidth, $imageSize['height'] ?? $defaultHeight);
+            $img = Image::make($image->getRealPath());
+            $img->fit($imageSize['width'] ?? $defaultWidth, $imageSize['height'] ?? $defaultHeight);
 
-            Storage::disk('local')->put('images/' . '/' . $currentImageName, $result, 'public');
+            $img->stream(); // <-- Key point
 
-            if ($result)
+            Storage::disk('local')->put('images/' . $currentImageName . '/' . $fileName, $img, 'public');
+
+            if ($img)
                 $indexArray[$sizeAlias] = storage_path('images/' . $currentImageName);
             else {
                 return false;
