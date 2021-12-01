@@ -8,20 +8,20 @@ use Intervention\Image\Facades\Image;
 
 class ImageService
 {
-    public function createIndexAndSave($image)
+  public function createIndexAndSave($image)
     {
-        //get sizes from config
+        //get data from config
         $imageSizes = Config::get('image.index-image-sizes');
 
-//        generate 5 random number
         $uuid = rand(10000, 90000);
+        $fileName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
 
         $indexArray = [];
         foreach ($imageSizes as $sizeAlias => $imageSize) {
-            //create and set this size name
-            $currentImageName = $uuid . '_' . $sizeAlias . '.' . $image->getClientOriginalName();
 
-//            get original image default width and height
+            //create and set this size name
+            $currentImageName = $uuid . '_' . $fileName . '/' . $sizeAlias . '.' . $image->Extension();
+
             list($defaultWidth, $defaultHeight) = $this->getDefaultSizes($image);
 
 
