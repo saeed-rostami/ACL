@@ -31,10 +31,10 @@ class ImageService
 
             $img->stream(); // <-- Key point
 
-            Storage::disk('local')->put('images/' . $currentImageName . '/' . $fileName, $img, 'public');
+            Storage::disk('local')->put('images' . DIRECTORY_SEPARATOR . $currentImageName . DIRECTORY_SEPARATOR . $fileName, $img, 'public');
 
             if ($img)
-                $indexArray[$sizeAlias] = storage_path('images/' . $currentImageName);
+                $indexArray[$sizeAlias] = storage_path('images' . DIRECTORY_SEPARATOR . $currentImageName);
             else {
                 return false;
             }
