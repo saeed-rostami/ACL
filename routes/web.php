@@ -19,4 +19,7 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->post('upload' , 'UploadImageController@upload');
+$router->post('upload' , [
+    'as' => 'upload',
+    'uses' => 'UploadImageController@upload'
+]);
