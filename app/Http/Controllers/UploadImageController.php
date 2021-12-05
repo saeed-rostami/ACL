@@ -12,4 +12,9 @@ class UploadImageController extends Controller
         $image = $request->file('image');
         $imageService->createIndexAndSave($image);
     }
+
+    public function test()
+    {
+//
+    }
 }
