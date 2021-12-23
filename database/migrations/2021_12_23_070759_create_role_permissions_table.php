@@ -17,7 +17,7 @@ class CreateRolePermissionsTable extends Migration
             $table->id();
             $table->foreignId('role_id')->references('id')->on('roles')->cascadeOnDelete();
             $table->string('model');
-            $table->enum('action', ["CREATE", 'UPDATE', "DELETE", "SHOW", "INDEX"]);
+            $table->string('action');
             $table->timestamps();
         });
     }

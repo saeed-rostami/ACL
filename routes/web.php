@@ -19,7 +19,15 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->post('upload' , [
-    'as' => 'upload',
-    'uses' => 'UploadImageController@upload'
-]);
+$router->get('/users', function () {
+//   $users = \App\Models\User::all();
+//    $role = \App\Models\Role::query()->find(1);
+//    $permissions = \App\Models\RolePermission::all();
+    $saeed = \App\Models\User::query()->find(1);
+
+//    return response($saeed->role->userRole->permissions);
+
+
+    $roleP = \App\Models\RolePermission::query()->find(4);
+    return response($roleP->action);
+});
