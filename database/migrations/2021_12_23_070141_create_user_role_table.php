@@ -20,7 +20,6 @@ class CreateUserRoleTable extends Migration
 
             $table->foreignId('role_id')->references('id')->on('roles')->cascadeOnDelete();
 
-            $table->unique('user_id');
 
 
             $table->timestamps();

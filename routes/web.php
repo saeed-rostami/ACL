@@ -13,21 +13,28 @@
 |
 */
 
-use App\Http\Controllers\Admin\Content\CategoryController;
+use App\Http\Controllers\RoleController;
 
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->get('/users', function () {
-//   $users = \App\Models\User::all();
-//    $role = \App\Models\Role::query()->find(1);
-//    $permissions = \App\Models\RolePermission::all();
-    $saeed = \App\Models\User::query()->find(1);
+//ROLES
+$router->get('/roles', 'RoleController@index');
+$router->post('/create/role', 'RoleController@create');
+$router->post('/update/role/{id}', 'RoleController@update');
+$router->delete('/delete/role/{id}', 'RoleController@destroy');
 
-//    return response($saeed->role->userRole->permissions);
+$router->post('/assignRole', 'RoleController@assignRole');
 
 
-    $roleP = \App\Models\RolePermission::query()->find(4);
-    return response($roleP->action);
-});
+//PERMISSIONS
+$router->get('/permission', 'PermissionController@index');
+$router->post('/create/permission', 'PermissionController@create');
+$router->post('/update/permission/{id}', 'PermissionController@update');
+$router->delete('/delete/permission/{id}', 'PermissionController@destroy');
+
+
+//USER
+$router->post('/user', 'UserController@index');
+//$router->post('/create/user', 'UserController@create');
